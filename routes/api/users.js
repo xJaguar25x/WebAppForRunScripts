@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 // для русских символов из консоли Windows
 const iconv = require('iconv-lite');
 
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
       ['/c', 'TestAppForWepApp.exe', '50'],
       {encoding: 'cp1251', cwd: 'C:/Users/Jaguar25/source/repos/TestAppForWepApp/x64/Debug/'}
       );
-    var temp,tempExit;
+    let temp, tempExit;
 
     bat.stdout.on('data', (data) => {
         console.log(data.toString());

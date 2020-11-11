@@ -1,4 +1,5 @@
 # Getting Started with Create React App
+** Внимание! на 10.11.20 версия "react" и "react-dom" выше 16.8.0 не поддерживается в "@material-ui/core": 4.11.0! *На данный момент последня версия "react" и "react-dom" = 17.0.1* **
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
