@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import {FormCompilers, FormProgs, TableProgFromDB} from "../components/index";
+import {FormCompilers, FormProgs, TableProgsFromDB, TableCompilersFromDB} from "../components/index";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -70,10 +70,11 @@ export default function App() {
           </AppBar>
           <TabPanel value={value} index={0}>
               <FormProgs type="Programs"/>
-              <TableProgFromDB/>
+              <TableProgsFromDB/>
           </TabPanel>
           <TabPanel value={value} index={1}>
               <FormCompilers type="Compilers"/>
+              <TableCompilersFromDB/>
           </TabPanel>
           <TabPanel value={value} index={2}>
               Tests
