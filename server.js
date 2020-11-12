@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 const app = express();
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
+// вариант с использованием https://www.npmjs.com/package/ws
 const WebSocket = require('ws');
 const server = require('http').createServer(app);
 /*const wss = new WebSocket.Server({server:server});
@@ -77,6 +78,7 @@ app.use('/api/compilers', compilerRouter);
 app.use('/api/tests', testRouter);
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
+// вариант с использованием https://www.npmjs.com/package/websocket
 const webSocketServer = require('websocket').server;
 //initialize a simple http server
 // const server = require('http').createServer(app); // подключен выше
@@ -92,6 +94,7 @@ const getUniqueID = () => {
     return s4() + s4() + '-' + s4();
 };
 const sendMsgAllClients =(data)=>{
+    // broadcasting message to all connected clients
     for (let key in clients) {
         clients[key].send(data);
         console.log('sent Message to: ', data);

@@ -9,7 +9,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import axios from "axios";
 import {TerminalContainer} from "../../containers/index"
 import TextField from "@material-ui/core/TextField/TextField";
-import {Field} from "formik";
+import {Field, useFormik} from "formik";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -35,44 +35,66 @@ const useStyles = makeStyles((theme) => ({
         "justify-content": "center",
         display: "flex",
         "flex-grow": 1,
-        "flex-flow": "row",
+        "flex-flow": "row wrap",
+    },
+    formInputs: {
+        "align-items": "center",
+        "justify-content": "center",
+        display: "flex",
+        "flex-grow": 1,
+        "flex-flow": "row wrap",
         margin: "10px",
+        width: "100%",
     }
 }));
 
 export default function FormTests() {
     const classes = useStyles();
     // react-hooks
-    const [progs, setProgs] = useState([]);
-    const [compilers, setCompilers] = useState([]);
+    // const [progs, setProgs] = useState([]);
+    // const [compilers, setCompilers] = useState([]);
     const [terminal, setTerminalOpen] = useState(false);
-    const [numbIter, setNumbIter] = useState('');
+    // const [numbIter, setNumbIter] = useState('');
+    const {values, handleChange, handleSubmit, handleReset, setFieldValue, setValues} = useFormik({
+        initialValues: {
+            progs: '',
+            compilers: '',
+            numbIter: ''
+        },
+        onSubmit: ({progs, compilers, numbIter}) => {
+            handlerRunScript();
+            console.log(JSON.stringify(values, null, 2));
+        },
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
               '/api/progs/',
             );
-            setProgs(result.data);
+            // setProgs(result.data);
+            // setFieldValue({field: 'progs', value: [{1:1,2:2}], shouldValidate: false});
+            setValues({fields: {'progs':"1"}, shouldValidate: false});
+            console.log('values.progs: ', values.progs);
+            console.log(values.progs);
             const result2 = await axios(
               '/api/compilers/',
             );
-            setCompilers(result2.data);
+            // setCompilers(result2.data);
+            // setValues({compilers: result2.data});
         };
         fetchData();
     }, []);
 
-
     function handlerRunScript() {
         setTerminalOpen(!terminal);
-
-    }
-
+    };
     return (
       <div className={classes.root}>
           <h3>Test group</h3>
-          <div className={classes.form}>
-              {/*<Button
+          <form className={classes.form} onReset={handleReset} onSubmit={handleSubmit} >
+              <div className={classes.formInputs}>
+                  {/*<Button
                   variant="contained"
                   color="default"
                   size="small"
@@ -83,50 +105,62 @@ export default function FormTests() {
                 >
                     Add Test
                 </Button>*/}
-              <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="selectProgs">Programs</InputLabel>
-                  <Select defaultValue="" id="selectProgs" name="selectProgs">
-                      <MenuItem value="" key={"" + Math.random()}><em>None</em></MenuItem>
-                      {progs.map((row) => (
-                        <MenuItem value={row._id} key={row._id}>{row.prog_name}</MenuItem>
-                      ))}
-                  </Select>
-              </FormControl>
+                  <FormControl className={classes.formControl}>
+                      <InputLabel htmlFor="selectProgs">Programs</InputLabel>
+                      <Select
+                        defaultValue=""
+                        id="selectProgs"
+                        name="selectProgs"
+                        selected={values.progs}
+                        onChange={handleChange}>
+                          <MenuItem value="" key={"" + Math.random()}><em>None</em></MenuItem>
+                         {/* {values.progs.map((row) => (
+                            <MenuItem value={row._id} key={row._id}>{row.prog_name}</MenuItem>
+                          ))}*/}
+                      </Select>
+                  </FormControl>
 
-              <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="selectCompilers">Compilers</InputLabel>
-                  <Select defaultValue="" id="selectCompilers" name="selectCompilers">
-                      <MenuItem value="" key={"" + Math.random()}><em>None</em></MenuItem>
-                      {compilers.map((row) => (
-                        <MenuItem value={row._id} key={row._id}>{row.compiler_name}</MenuItem>
-                      ))}
-                  </Select>
-              </FormControl>
+                  <FormControl className={classes.formControl}>
+                      <InputLabel htmlFor="selectCompilers">Compilers</InputLabel>
+                      <Select
+                        defaultValue=""
+                        id="selectCompilers"
+                        name="selectCompilers"
+                        selected={values.compilers}
+                        onChange={handleChange}>
+                          <MenuItem value="" key={"" + Math.random()}><em>None</em></MenuItem>
+                         {/* {values.compilers.map((row) => (
+                            <MenuItem value={row._id} key={row._id}>{row.compiler_name}</MenuItem>
+                          ))}*/}
+                      </Select>
+                  </FormControl>
 
-              <TextField
-                name="numbIter"
-                id="standard-basic"
-                label="Numbers of iterations"
-                type="number"
-                value={numbIter}
-                onChange={(e) => setNumbIter(e.target.value)}
-              />
+                  <TextField
+                    name="numbIter"
+                    id="standard-basic"
+                    label="Numbers of iterations"
+                    type="number"
+                    value={values.numbIter}
+                    // value={numbIter}
+                    // onChange={(e) => setNumbIter(e.target.value)}
+                    onChange={handleChange}
+                  />
 
-              {/*для отладки*/}
-              {/*<pre>{JSON.stringify(formProps.values, null, 2)}</pre>*/}
-          </div>
+                  {/*для отладки*/}
+                  {/*<pre>{JSON.stringify(formProps.values, null, 2)}</pre>*/}
+              </div>
 
-          <Button
-            variant="contained"
-            size="large"
-            className={classes.buttonStartTests}
-            startIcon={<SaveIcon/>}
-            type="submit"
-            onClick={() => handlerRunScript()}
-          >
-              Run test group
-          </Button>
-
+              <Button
+                variant="contained"
+                size="large"
+                className={classes.buttonStartTests}
+                startIcon={<SaveIcon/>}
+                type="submit"
+                onClick={() => handleSubmit()}
+              >
+                  Run test group
+              </Button>
+          </form>
           {terminal ? <TerminalContainer props='testprop'/> : null}
       </div>
 
