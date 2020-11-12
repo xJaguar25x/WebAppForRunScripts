@@ -6,5 +6,6 @@ export { default as FormCompilers } from "./FormCompilers/FormCompilers";
 export { default as TextArea } from "./TextArea/TextArea";
 export { default as TableProgsFromDB } from "./TableProgsFromDB/TableProgsFromDB";
 export { default as TableCompilersFromDB } from "./TableCompilersFromDB/TableCompilersFromDB";
+export { default as FormTests } from "./FormTests/FormTests";
 
 

@@ -1,0 +1,27 @@
+.root{
+    margin: 30px 10px 10px 10px;
+    //display: flex;
+    //flex-flow: column wrap;
+    //align-items: center;
+    //justify-content: center;
+    width: 100%;
+
+
+}
+.msgContainer{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 30px;
+    min-width: 250px;
+    margin: 10px;
+
+    background: #2b2b2b;
+    color: #bbbbbb;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+}
+.msgContainer span{
+    margin: 5px;
+}
