@@ -12,7 +12,11 @@ const Prog = require('../../models/Prog');
 router.get('/', (req, res) => {
     Prog.find()
       .sort({date: -1})
-      .then(progs => res.json(progs));
+      .then(progs => {
+          res.json(progs);
+          // console.log(progs);
+      });
+
 });
 
 // @route   POST api/progs

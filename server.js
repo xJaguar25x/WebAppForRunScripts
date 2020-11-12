@@ -93,12 +93,50 @@ const getUniqueID = () => {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     return s4() + s4() + '-' + s4();
 };
-const sendMsgAllClients =(data)=>{
+const sendMsgAllClients = (data) => {
     // broadcasting message to all connected clients
     for (let key in clients) {
         clients[key].send(data);
-        console.log('sent Message to: ', data);
+        // console.log('sent Message to: ', data);
     }
+};
+//функция для запуска внешних модулей
+const {spawn} = require('child_process');
+function RunScript(message) {
+    const formData = JSON.parse(message.utf8Data);
+    console.log(formData.numbIter);
+    console.log(formData);
+    /*message: {
+        type: 'utf8',
+          utf8Data: '{"prog_name":"stdafx","compiler_name":"wadwd","numbIter":"3"}'
+    }*/
+
+    // //рабочий вариант
+    // const {spawn} = require('child_process');
+    // для русских символов из консоли Windows
+    const iconv = require('iconv-lite');
+    //const bat = spawn('cmd.exe', ['/c', 'TestAppForWepApp.exe', '50']);
+    const bat = spawn(
+      'cmd.exe',
+      ['/c', 'TestAppForWepApp.exe', formData.numbIter],
+      {encoding: 'cp1251', cwd: 'C:/Users/Jaguar25/source/repos/TestAppForWepApp/x64/Debug/'}
+    );
+    let temp, tempExit;
+
+    bat.stdout.on('data', (data) => {
+        console.log(data.toString());
+        temp += data.toString();
+        sendMsgAllClients(data.toString());
+    });
+
+    bat.stderr.on('data', (data) => {
+        console.error(data.toString());
+    });
+
+    bat.on('exit', (code) => {
+        console.log(`Child exited with code ${code}`);
+        tempExit = `Child exited with code ${code}`;
+    });
 };
 
 wsServer.on('request', function (request) {
@@ -120,38 +158,10 @@ wsServer.on('request', function (request) {
         //         console.log('sent Message to: ', key);
         //     }
         // }
-
-        //рабочий вариант
-        const { spawn } = require('child_process');
-        // для русских символов из консоли Windows
-        const iconv = require('iconv-lite');
-        //const bat = spawn('cmd.exe', ['/c', 'TestAppForWepApp.exe', '50']);
-        const bat = spawn(
-          'cmd.exe',
-          ['/c', 'TestAppForWepApp.exe', '50'],
-          {encoding: 'cp1251', cwd: 'C:/Users/Jaguar25/source/repos/TestAppForWepApp/x64/Debug/'}
-        );
-        let temp, tempExit;
-
-        bat.stdout.on('data', (data) => {
-            console.log(data.toString());
-            temp += data.toString();
-            sendMsgAllClients(data.toString());
-        });
-
-        bat.stderr.on('data', (data) => {
-            console.error(data.toString());
-        });
-
-        bat.on('exit', (code) => {
-            console.log(`Child exited with code ${code}`);
-            tempExit = `Child exited with code ${code}`;
-            //res.send( iconv.encode(iconv.decode(temp, "cp1251"), "cp1251").toString());
-            //res.send(iconv.decode(Buffer.from(temp, 'binary'), 'cp1251').toString());
-        });
+        RunScript(message);
 
     });
-    connection.on('close', function(reasonCode, description) {
+    connection.on('close', function (reasonCode, description) {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
 });

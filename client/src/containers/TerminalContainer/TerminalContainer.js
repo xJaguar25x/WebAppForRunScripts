@@ -1,8 +1,6 @@
 import React, {Component, useState} from 'react';
 import {w3cwebsocket as W3CWebSocket} from "websocket";
 import classes from './TerminalContainer.module.scss';
-import Card from "@material-ui/core/Card";
-import ButtonUpload from "../../components/ButtonUpload/ButtonUpload";
 import PropTypes from "prop-types";
 
 const client = new W3CWebSocket('ws://localhost:5000');
@@ -19,14 +17,13 @@ export default class TerminalContainer extends Component {
             msg: value,
             user: this.state.userName
         }));
-        this.setState({searchVal: ''})
     };
 
     componentDidMount() {
         client.onopen = () => {
             console.log('WebSocket Client Connected');
         };
-        client.send(JSON.stringify({msg: this.props.props}));
+        client.send(JSON.stringify(this.props.props));
 
         client.onmessage = (message) => {
             // const dataFromServer = JSON.parse(message.data);
@@ -50,7 +47,7 @@ export default class TerminalContainer extends Component {
     render() {
         return (
           <div className={classes.root}>
-              <button onClick={() => this.onButtonClicked("hello")}>send message</button>
+              {/*<button onClick={() => this.onButtonClicked("hello")}>send message</button>*/}
               <div className={classes.msgContainer}>
                   {this.state.messages.map(message =>
                     <div key={message.msg}>
