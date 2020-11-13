@@ -25,6 +25,7 @@ yarn-error.log*
 
 #IDE
 .idea
+.vs
 
 #other
 /client/public/uploads
