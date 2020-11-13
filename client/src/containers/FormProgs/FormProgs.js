@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import {ButtonUpload} from "../index";
+import {ButtonUpload, Message} from "../../components/index";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 import {Field, Form, Formik} from 'formik';
 import axios from "axios";
-import Message from "../Message/Message";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +25,7 @@ export default function FormProgs() {
         const formData = new FormData();
         formData.append('data', data);
     };*/
-    const onSubmitTraversy = async (values) => {
+    const handlerSubmit = async (values) => {
         // event.preventDefault();
         console.log("submit: ", values);
         const formData = new FormData();
@@ -56,7 +55,7 @@ export default function FormProgs() {
       <Formik
         initialValues={{prog_name: "", code: "", meta: ""}}
         onSubmit={values => {
-            onSubmitTraversy(values)
+            handlerSubmit(values)
         }}
       >
           {(formProps) => (

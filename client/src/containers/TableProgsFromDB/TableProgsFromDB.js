@@ -8,12 +8,12 @@ import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
-import classes from './TableCompilersFromDB.module.scss';
+import classes from './TableProgsFromDB.module.scss';
 import axios from "axios";
-import Message from "../Message/Message";
+import Message from "../../components/Message/Message";
 
 
-export default function TableCompilersFromDB() {
+export default function TableProgsFromDB() {
     // react-hooks
     const [message, setMessage] = useState('');
     const [posts, setPosts] = useState([]);
@@ -21,7 +21,7 @@ export default function TableCompilersFromDB() {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-              '/api/compilers/',
+              'api/progs/',
             );
             setPosts(result.data);
         };
@@ -32,7 +32,7 @@ export default function TableCompilersFromDB() {
         console.log("delete item: ", id);
 
         try {
-            const res = await axios.delete('api/compilers/' + id);
+            const res = await axios.delete('api/progs/' + id);
             setMessage({status: res.status, msg: res.data.msg});
         } catch (err) {
             setMessage({status: err.response.status, msg: err.response.data.msg});
@@ -46,9 +46,8 @@ export default function TableCompilersFromDB() {
               <Table className={classes.table} aria-label="simple table">
                   <TableHead>
                       <TableRow>
-                          <TableCell>Compiler name</TableCell>
-                          <TableCell align="right">Command to compile</TableCell>
-                          <TableCell align="right">Command to run</TableCell>
+                          <TableCell>Program name</TableCell>
+                          <TableCell align="right">Meta</TableCell>
                           <TableCell align="right">Create date</TableCell>
                           <TableCell align="right">Delete</TableCell>
                       </TableRow>
@@ -56,9 +55,8 @@ export default function TableCompilersFromDB() {
                   <TableBody>
                       {posts.map((row) => (
                         <TableRow key={row._id}>
-                            <TableCell component="th" scope="row">{row.compiler_name}</TableCell>
-                            <TableCell align="right">{row.command_to_compile}</TableCell>
-                            <TableCell align="right">{row.command_to_run}</TableCell>
+                            <TableCell component="th" scope="row">{row.prog_name}</TableCell>
+                            <TableCell align="right">{row.meta}</TableCell>
                             <TableCell align="right">{row.creation_date}</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="delete" id={row._id} onClick={() => handlerDelete(row._id)}>
@@ -72,4 +70,5 @@ export default function TableCompilersFromDB() {
           </TableContainer>
       </div>
     );
+
 }

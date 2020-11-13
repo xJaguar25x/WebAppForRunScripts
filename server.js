@@ -101,10 +101,8 @@ const sendMsgAllClients = (data) => {
     }
 };
 //функция для запуска внешних модулей
-const {spawn} = require('child_process');
 function RunScript(message) {
     const formData = JSON.parse(message.utf8Data);
-    console.log(formData.numbIter);
     console.log(formData);
     /*message: {
         type: 'utf8',
@@ -112,10 +110,9 @@ function RunScript(message) {
     }*/
 
     // //рабочий вариант
-    // const {spawn} = require('child_process');
+     const {spawn} = require('child_process');
     // для русских символов из консоли Windows
     const iconv = require('iconv-lite');
-    //const bat = spawn('cmd.exe', ['/c', 'TestAppForWepApp.exe', '50']);
     const bat = spawn(
       'cmd.exe',
       ['/c', 'TestAppForWepApp.exe', formData.numbIter],
@@ -136,6 +133,7 @@ function RunScript(message) {
     bat.on('exit', (code) => {
         console.log(`Child exited with code ${code}`);
         tempExit = `Child exited with code ${code}`;
+        sendMsgAllClients(tempExit);
     });
 };
 

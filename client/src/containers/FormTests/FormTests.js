@@ -1,15 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from "@material-ui/core/Button";
+import {InputLabel, MenuItem, FormControl, Select, Button, TextField} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import axios from "axios";
-import {TerminalContainer} from "../../containers/index"
-import TextField from "@material-ui/core/TextField/TextField";
-import {Field} from "formik";
+import {TerminalContainer} from "../index"
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -67,7 +61,7 @@ export default function FormTests() {
     }, []);
 
     function handlerRunScript() {
-        setTerminalOpen(true);
+        setTerminalOpen(!terminal);
         setFormData({
             prog_name: selectedProg.prog_name,
             compiler_name: selectedCompiler.compiler_name,
@@ -81,9 +75,12 @@ export default function FormTests() {
     };
     return (
       <div className={classes.root}>
-          <h3>Test group</h3>
+          <h3>Test</h3>
+          {/*<h3>Test group</h3>*/}
           <div className={classes.form}>
-              {/*<Button
+              {/*
+              //для реализации добавления еще 1 теста
+              <Button
                   variant="contained"
                   color="default"
                   size="small"

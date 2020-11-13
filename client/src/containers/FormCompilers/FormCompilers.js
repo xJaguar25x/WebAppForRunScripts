@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { TextArea} from "../index";
+import {Message} from "../../components";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
 import {Field, Form, Formik} from 'formik';
 import axios from "axios";
-import Message from "../Message/Message";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,12 +21,12 @@ export default function FormCompilers() {
     // react-hooks
     const [message, setMessage] = useState('');
 
-   const onSubmit = async (values) => {
+    const onSubmit = async (values) => {
         console.log("submit: ", values);
         console.log(values);
 
         try {
-            const res = await axios.post('api/compilers', values );
+            const res = await axios.post('api/compilers', values);
             setMessage({status: 200, msg: 'Data uploaded'});
         } catch (err) {
             if (err.response.status === 500) {
@@ -41,7 +40,9 @@ export default function FormCompilers() {
     return (
       <Formik
         initialValues={{compiler_name: "", command_to_compile: "", command_to_run: ""}}
-        onSubmit={values => {onSubmit(values)}}
+        onSubmit={values => {
+            onSubmit(values)
+        }}
       >
           {(formProps) => (
             <Form className={classes.root}>
@@ -67,8 +68,8 @@ export default function FormCompilers() {
                 >
                     Save
                 </Button>
-                  {/*для отладки*/}
-                  {/*<pre>{JSON.stringify(formProps.values, null, 2)}</pre>*/}
+                {/*для отладки*/}
+                {/*<pre>{JSON.stringify(formProps.values, null, 2)}</pre>*/}
             </Form>
           )}
       </Formik>
