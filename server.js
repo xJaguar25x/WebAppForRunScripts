@@ -115,8 +115,8 @@ function RunScript(message) {
     const iconv = require('iconv-lite');
     const bat = spawn(
       'cmd.exe',
-      ['/c', 'TestAppForWepApp.exe', formData.numbIter],
-      {encoding: 'cp1251', cwd: 'C:/Users/Jaguar25/source/repos/TestAppForWepApp/x64/Debug/'}
+      ['/c', 'TestScriptForWepApp.exe', formData.numbIter],
+      {encoding: 'cp1251', cwd: 'TestScriptForWepApp/x64/Debug/'}
     );
     let temp, tempExit;
 

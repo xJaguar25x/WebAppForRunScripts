@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonUpload(props) {
-    const {name, onChange, value, ...other} = props;
+    const {name, onChange, value} = props;
     const classes = useStyles();
 
     return (

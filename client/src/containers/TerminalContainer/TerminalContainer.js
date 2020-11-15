@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {w3cwebsocket as W3CWebSocket} from "websocket";
 import classes from './TerminalContainer.module.scss';
 import PropTypes from "prop-types";

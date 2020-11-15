@@ -1,7 +1,5 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TextArea(props) {
-    const {name, onChange, value, ...rest} = props;
+    //const {name, onChange, value} = props;
     const classes = useStyles();
 
     return (

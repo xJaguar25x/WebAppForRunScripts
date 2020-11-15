@@ -42,6 +42,7 @@ export default function FormProgs() {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
             setMessage({status: 200, msg:'Data uploaded'});
+            console.log("upload data: ",res);
         } catch (err) {
             if (err.response.status === 500) {
                 setMessage({status: '500', msg: 'There was a problem with a server'});
