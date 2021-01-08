@@ -14,10 +14,13 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "config": "^3.3.2",
+    "cors": "^2.8.5",
     "express": "~4.16.1",
     "express-fileupload": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.13",
     "websocket": "^1.0.32",
     "ws": "^7.4.0"

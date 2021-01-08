@@ -1,0 +1,120 @@
+.menu_right {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.menu_right.avatar {
+    height: 30px;
+    width: 30px;
+   // margin: 16px 20px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    font-size: 48px;
+    line-height: 100px;
+}
+
+.avatar {
+    color: #000;
+    background: #B7CAF5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserProfile {
+    background: #ffffff;
+    /* height: 100%; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    //align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    overflow: inherit;
+
+    border-radius: 5px;
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+}
+
+.UserProfile_Header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    /* height: 100px; */
+    /* margin: 0; */
+    padding: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #3f51b5;
+    line-height: 1.2em;
+    letter-spacing: 0em;
+    border-bottom: 2px solid #3f51b5;
+}
+
+.PopoverColumn {
+    display: flex;
+    flex-flow: column;
+    /* position: absolute; */
+    z-index: 10;
+    /* top: 45px; */
+    /* left: 195px; */
+    width: 240px;
+    /* height: 250px; */
+    background: #fff;
+    //border-top: 1px solid #c2c2c7;
+    border-radius: 5px;
+}
+
+.Popover_Header {
+    height: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Popover_Content {
+    width: 100%;
+}
+
+.Popover_List {
+    //width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 5px 10px;
+    padding-top: 10px;
+    //border-top: 1px solid #c2c2c7;
+
+}
+.Popover_List_btn {
+    padding: 5px;
+    background: none;
+    border: none;
+    margin-bottom: 10px;
+    color: #777fa5;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+    }
+    &:hover, &:focus {
+        color: #9555af;
+        border-color: currentColor;
+        background-color: white;
+        text-decoration: underline;
+    }
+}
