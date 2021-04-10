@@ -1,5 +1,6 @@
 export { default as App } from "./App/App";
 export { default as Main } from "./Main/Main";
+export { default as MenuAppBar } from "./MenuAppBar/MenuAppBar";
 
 export { default as PrivateRoute} from "./PrivateRoute/PrivateRoute";
 export { default as PublicRoute} from "./PublicRoute/PublicRoute";

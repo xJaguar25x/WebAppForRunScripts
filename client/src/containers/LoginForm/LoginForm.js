@@ -139,7 +139,7 @@ class LoginForm extends Component {
                               onKeyDown={this.handleKeyDown}
                               name={'login'}
                               value={login}
-                              title={'Username or E-mail'}
+                              title={'E-mail'}
                             />
                             <LabeledInput
                               autoFocus
