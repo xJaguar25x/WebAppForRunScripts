@@ -77,12 +77,12 @@ router.post('/login', (req, res) => {
     // Check for existing user
     User.findOne({email: login})
       .then(user => {
-          if (!user) return res.status(400).json('User Does not exist');
+          if (!user) return res.status(404).json('User Does not exist');
 
           // Validate password Сравнение переданного пароля с хешированной версией в БД
           bcrypt.compare(password, user.password)
             .then(isMatch => {
-                if (!isMatch) return res.status(400).json('Invalid credentials');
+                if (!isMatch) return res.status(403).json('Invalid credentials');
                 // если совпадает
                 jwt.sign(
                   {id: user.id},
@@ -103,13 +103,16 @@ router.post('/login', (req, res) => {
             })
       })
 });
-// @route   GET api/users/getUser
+// @route   GET api/users/id
 // @desc    Get user data
 // @access  Private
 router.get('/:id', auth, (req, res) => {
     User.findById(req.params.id)
       .select('-password')
-      .then(user => res.json(user));
+      .then(user => {
+          if (!user) return res.status(404).json('User Does not exist');
+          res.json(user)
+      });
 });
 
 module.exports = router;

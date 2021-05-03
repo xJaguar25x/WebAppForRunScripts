@@ -82,7 +82,7 @@ class UserPreview extends Component {
     render() {
         const {isLoading, error} = this.props.Auth;
         const user = Object.values(this.props.Auth.user).length;
-        console.log("Auth =", this.props.Auth);
+        // console.log("Auth =", this.props.Auth);
         return (
           <PreloaderWrapper
             isLoading={isLoading}

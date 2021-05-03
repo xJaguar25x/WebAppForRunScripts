@@ -53,7 +53,9 @@ export default function (state = initialState, action) {
         case LOGIN_FAIL:
         case LOGOUT_SUCCESS:
         case REGISTER_FAIL:
-            // localStorage.removeItem('access_token');
+            //удаляем токен и id из localStorage
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user_id');
             // localStorage.removeItem('refresh_token');
             return {
                 ...state,

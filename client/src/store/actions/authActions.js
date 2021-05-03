@@ -14,7 +14,7 @@ import {
 
 //настройки для всеx запросов
 axios.defaults.baseURL = 'http://localhost:5000';
- axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 // Check token & load user
 export const loadUSER = () => (dispatch, getState) => {
@@ -39,6 +39,7 @@ export const loadUSER = () => (dispatch, getState) => {
               payload: {user: firstReq.data}
           })
       })
+
       .catch(err => {
           dispatch(returnErrors(err.data, err.status));
           dispatch({
