@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Main() {
+function Main(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -74,14 +74,14 @@ function Main() {
 
     return (
       <div className={classes.root}>
-          <MenuAppBar/>
+          <MenuAppBar {...props}/>
           <AppBar className={classes.AppBar} position="static">
               <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
                   <Tab label="Programs" {...a11yProps(0)} />
                   <Tab label="Compilers" {...a11yProps(1)} />
                   <Tab label="Tests" {...a11yProps(2)} />
               </Tabs>
-              <UserPreview />
+              <UserPreview {...props}/>
           </AppBar>
           <TabPanel value={value} index={0}>
               <FormProgs type="Programs"/>

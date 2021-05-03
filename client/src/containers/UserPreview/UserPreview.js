@@ -4,7 +4,6 @@ import {ClickOutsideWrapper, PreloaderWrapper} from "../../hoc";
 import {Button} from "../../components";
 import {connect} from "react-redux";
 import {loadUSER, logoutUSER} from "../../store/actions/authActions";
-import {NavLink, Redirect, useHistory, withRouter} from "react-router-dom";
 import store from "../../store/store";
 
 
@@ -24,11 +23,10 @@ class UserPreview extends Component {
 
     // выйти из системы
     handleUserLogout = () => {
+        // очистка localstorage
         this.props.logoutUSER();
-      //  let history = useHistory();
-        //const {history} = props;
-        // this.props.history.push("/");
-
+        //редирект на страницу авторизации
+        this.props.history.push("/login");
     };
     // перейти на страницу пользователя
     // handleUserProfile = () => {
