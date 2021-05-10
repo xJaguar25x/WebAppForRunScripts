@@ -12,9 +12,9 @@ import {
     TableProgsFromDB,
     TableCompilersFromDB,
     FormTests,
-    UserPreview
+    UserPreview,
+    AppTopMenuBar
 } from "../../containers/index";
-import MenuAppBar from "../MenuAppBar/MenuAppBar";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -74,7 +74,7 @@ function Main(props) {
 
     return (
       <div className={classes.root}>
-          <MenuAppBar {...props}/>
+          <AppTopMenuBar {...props}/>
           <AppBar className={classes.AppBar} position="static">
               <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
                   <Tab label="Programs" {...a11yProps(0)} />
