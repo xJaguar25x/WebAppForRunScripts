@@ -1,9 +1,9 @@
-import './App.css';
-import React, {Component, Fragment} from 'react';
-import {PrivateRoute, PublicRoute, Main, LoginForm } from "../index";
+import React, {Component} from 'react';
+import {PrivateRoute, PublicRoute, Main, LoginForm, Programs, Compilers, Tasks, Results} from "../index";
 import store from "../../store/store";
 import {loadUSER} from "../../store/actions/authActions";
-import {withRouter} from "react-router-dom";
+import {withRouter, Switch} from "react-router-dom";
+import LayoutWithMenu from "../../hoc/LayoutWithMenu/LayoutWithMenu";
 
 
 class App extends Component {
@@ -15,18 +15,24 @@ class App extends Component {
 
     render() {
         // const {isLoading, isError, orderList} = this.props;
-        // const { history } = this.props;
+        const { history } = this.props;
         // console.log("App this.props =", this.props);
         return (
-          <Fragment>
-              <div className="new">
-                  <div className="App">
-                      <PublicRoute exact restricted={true} component={LoginForm} path="/login" />
-                      <PrivateRoute exact path="/" component={Main}/>
-                  </div>
-              </div>
-          </Fragment>
+          <Switch>
+
+              <PublicRoute exact path="/login" restricted={true} component={LoginForm}/>
+              <PrivateRoute exact path="/" component={Main}/>{/*// можно использовать, если нужна главная страница */}
+
+              <LayoutWithMenu history={history}>
+                  <PrivateRoute exact path="/programs" component={Programs}/>
+                  <PrivateRoute exact path="/compilers" component={Compilers}/>
+                  <PrivateRoute exact path="/tasks" component={Tasks}/>
+                  <PrivateRoute exact path="/results" component={Results}/>
+              </LayoutWithMenu>
+
+          </Switch>
         )
     }
 }
+
 export default withRouter(App);

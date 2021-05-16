@@ -1,5 +1,6 @@
 import './Main.module.scss';
-import React from 'react';
+import React, {Fragment, useEffect} from 'react';
+import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,9 +13,14 @@ import {
     TableProgsFromDB,
     TableCompilersFromDB,
     FormTests,
-    UserPreview,
-    AppTopMenuBar
-} from "../../containers/index";
+    AppTopMenuBar,
+    PublicRoute,
+    LoginForm,
+    Programs,
+    Compilers,
+    Tasks,
+    Results,
+} from "../index";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -68,6 +74,19 @@ function Main(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
+    // ~~~~~~~~~~~~~~ Redirect ~~~~~~~~~~~~~~
+    // Перенаправление на страницу "/programs", если не нужна страница "/" - main
+    let history = useHistory();
+    let location = useLocation();
+    let {from} = location.state || {from: {pathname: "/programs"}};
+    const redirect = () => {
+        history.replace(from);
+    };
+    useEffect(() => {
+        // redirect(); //TODO: раскоментировать, чтобы заработал редирект
+    });
+    // ~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -81,8 +100,8 @@ function Main(props) {
                   <Tab label="Compilers" {...a11yProps(1)} />
                   <Tab label="Tests" {...a11yProps(2)} />
               </Tabs>
-              <UserPreview {...props}/>
           </AppBar>
+
           <TabPanel value={value} index={0}>
               <FormProgs type="Programs"/>
               <TableProgsFromDB/>
@@ -94,7 +113,9 @@ function Main(props) {
           <TabPanel value={value} index={2}>
               <FormTests/>
           </TabPanel>
+
       </div>
     );
 }
+
 export default (Main);
