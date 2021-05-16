@@ -1,84 +1,38 @@
-import './App.css';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import {FormCompilers, FormProgs, TableProgsFromDB, TableCompilersFromDB, FormTests} from "../../containers/index";
+import React, {Component} from 'react';
+import {PrivateRoute, PublicRoute, Main, LoginForm, Programs, Compilers, Tasks, Results} from "../index";
+import store from "../../store/store";
+import {loadUSER} from "../../store/actions/authActions";
+import {withRouter, Switch} from "react-router-dom";
+import LayoutWithMenu from "../../hoc/LayoutWithMenu/LayoutWithMenu";
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-          {value === index && (
-            <Box p={3}>
-                {/*<Typography>*/}
-                    {children}
-                {/*</Typography>*/}
-            </Box>
-          )}
-      </div>
-    );
+class App extends Component {
+
+    // при создании компонента вызываем функцию получения token из данных user
+    componentDidMount() {
+        store.dispatch(loadUSER());
+    }
+
+    render() {
+        // const {isLoading, isError, orderList} = this.props;
+        const { history } = this.props;
+        // console.log("App this.props =", this.props);
+        return (
+          <Switch>
+
+              <PublicRoute exact path="/login" restricted={true} component={LoginForm}/>
+              <PrivateRoute exact path="/" component={Main}/>{/*// можно использовать, если нужна главная страница */}
+
+              <LayoutWithMenu history={history}>
+                  <PrivateRoute exact path="/programs" component={Programs}/>
+                  <PrivateRoute exact path="/compilers" component={Compilers}/>
+                  <PrivateRoute exact path="/tasks" component={Tasks}/>
+                  <PrivateRoute exact path="/results" component={Results}/>
+              </LayoutWithMenu>
+
+          </Switch>
+        )
+    }
 }
 
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-
-}));
-
-export default function App() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    return (
-      <div className={classes.root}>
-          <AppBar position="static">
-              <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
-                  <Tab label="Programs" {...a11yProps(0)} />
-                  <Tab label="Compilers" {...a11yProps(1)} />
-                  <Tab label="Tests" {...a11yProps(2)} />
-              </Tabs>
-          </AppBar>
-          <TabPanel value={value} index={0}>
-              <FormProgs type="Programs"/>
-              <TableProgsFromDB/>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-              <FormCompilers type="Compilers"/>
-              <TableCompilersFromDB/>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-              <FormTests/>
-          </TabPanel>
-      </div>
-    );
-}
+export default withRouter(App);

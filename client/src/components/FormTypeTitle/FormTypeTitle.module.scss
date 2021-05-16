@@ -1,0 +1,15 @@
+.FormTypeTitle{
+  background: none;
+  border: none;
+  padding-bottom: 4px;
+  font-size: 18px;
+  border-bottom: 5px solid rgba(0,0,0,0);
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.Active{
+  border-bottom: 5px solid #68d2d2;
+  cursor: default;
+}
