@@ -26,6 +26,8 @@ yarn-error.log*
 #IDE
 .idea
 .vs
+/TestScriptForWepApp/TestScriptForWepApp/x64/Debug
+/TestScriptForWepApp/x64/Debug
 
 #other
 /client/public/uploads

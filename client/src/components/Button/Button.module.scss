@@ -1,0 +1,324 @@
+@mixin button-reset {
+    /**
+    * Сброс стилей у кнопки.
+    */
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    /* отображаем курсор в виде руки при наведении;  */
+    cursor: pointer;
+}
+
+.Button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(46, 68, 78);
+    line-height: 18px;
+    border: none;
+    transition-duration: 0.085s;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0;
+    width: auto;
+    height: auto;
+    transition-timing-function: ease-in;
+    background-color: #fff;
+
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+}
+
+//============================ Add Form ============================
+//=============== for (card, column, board, project) ===============
+// For All
+.Add {
+    background-color: #68d2d2;
+    color: #091E42;
+}
+
+button:disabled.Add {
+    color: #ffffff;
+    background-color: #b7caf5;
+}
+
+button:disabled {
+    text-decoration: line-through;
+}
+
+//~~~~~~~~~~~~~~~~~ Card ~~~~~~~~~~~~~~~~~
+.Card_AddBtn_Outer {
+    //margin: 8px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    background: none;
+    padding: 0 10px;
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+    //color: #777fa5;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    color: #929292;
+
+    & i{
+        margin-right: 11px;
+    }
+    &:hover {
+        color: #000;
+        background: #fff;
+    }
+}
+//~~~~~~~~~~~~~~~~~ Column ~~~~~~~~~~~~~~~~~
+.Column_AddBtn_Outer  {
+    height: 59px;
+    width: 344px;
+    color: #929292;
+    font-size: 20px;
+    text-align: center;
+    line-height: 27px;
+    cursor: pointer;
+
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    justify-content: flex-start;
+    background: #FAFAFA;
+
+    & i{
+        margin: 0 11px 0 16px;
+    }
+    &:hover {
+        box-shadow: none;
+        color: #000;
+        background: #dadada;
+    }
+}
+
+//~~~~~~~~~~~~~~~~~ Board ~~~~~~~~~~~~~~~~~
+.Board_AddBtn_Outer {
+    height: 34px;
+    width: 34px;
+    color: #b9ccf6;
+    border: 1px solid #b9ccf6;
+    border-radius: 50%;
+    font-size: 34px;
+    text-align: center;
+    line-height: 27px;
+    cursor: pointer;
+
+    span {
+        margin-left: -1px;
+    }
+    &:hover {
+        color: #000;
+        background: #fff;
+    }
+}
+//~~~~~~~~~~~~~~~~~ Project ~~~~~~~~~~~~~~~~~
+.Project_AddBtn_Outer {
+    height: 34px;
+    width: 34px;
+    color: #b9ccf6;
+    border: 1px solid #b9ccf6;
+    border-radius: 50%;
+    font-size: 34px;
+    text-align: center;
+    line-height: 27px;
+    cursor: pointer;
+
+    span {
+        margin-left: -1px;
+    }
+    &:hover {
+        color: #000;
+        background: #fff;
+    }
+}
+//========================= End Form ============================
+
+.Popover_List_btn {
+    padding: 5px;
+    background: none;
+    border: none;
+    margin-bottom: 10px;
+    color: #777fa5;
+    cursor: pointer;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+    }
+    &:hover, &:focus {
+        color: #9555af;
+        border-color: currentColor;
+        background-color: white;
+    }
+}
+
+.Popover_List_btn_2 {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 20px;
+    text-decoration: none;
+
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    height: 48px;
+    margin: 0;
+    padding: 4px;
+    text-align: left;
+    //text-decoration: underline;
+    width: 100%;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+    }
+    &:hover, &:focus {
+        color: #9555af;
+        border-color: currentColor;
+        background-color: white;
+    }
+}
+
+.Popover_close_btn {
+    // используем миксин
+    @include button-reset;
+
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #777fa5;
+    border-radius: 50%;
+    background: none;
+    color: #777fa5;
+    font-size: 12px;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+    }
+    &:hover, &:focus {
+        color: #9555af;
+        border-color: currentColor;
+        background-color: white;
+    }
+    //&:focus{
+    //    outline: none;
+    //}
+}
+
+.Card_Action_Btn {
+    background-color: rgba(9, 30, 66, .04);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 32px;
+    margin-top: 8px;
+    padding: 6px 12px;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+    }
+    &:hover {
+        border-color: currentColor;
+        background-color: white;
+    }
+    &:focus {
+        color: #9555af;
+        border-color: currentColor;
+        background-color: white;
+    }
+
+}
+
+.circleBtn {
+    height: 34px;
+    width: 34px;
+    color: #b9ccf6;
+    border: 1px solid #b9ccf6;
+    border-radius: 50%;
+    font-size: 34px;
+    text-align: center;
+    line-height: 27px;
+
+    span {
+        margin-left: -1px;
+    }
+    &:hover {
+        color: #000;
+        background: #dadada;
+    }
+}
+
+.btnOpenPopoverColumn {
+    background: none;
+    color: #535353;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 6px;
+
+    &:hover {
+        box-shadow: none;
+        color: #000;
+        background: #dadada;
+    }
+}
+
+.btnOpenPopoverUserProfile {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    line-height: 18px;
+    position: absolute;
+    /* top: 20px; */
+    right: 20px;
+
+    &:active {
+        transform: translateY(1px);
+        filter: saturate(150%);
+        border: none;
+        box-shadow: none;
+    }
+    &:hover {
+        //text-decoration: underline;
+        border: 1px solid #fff;
+        box-shadow: none;
+    }
+    &:focus {
+        text-decoration: underline;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+
