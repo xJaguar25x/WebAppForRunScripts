@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,66 +12,24 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {MenuUserProfile, MenuLinks} from "../../containers/index";
 
-
-const drawerWidth = 240;
 const styles = (theme) => ({
     root: {
         // display: 'flex',
         // flexGrow: 1,
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
     menuButton: {
         marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
     },
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(0, 1),
+        padding: theme.spacing(0, 1, 0, 2),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
+        justifyContent: 'space-between',
     },
     title: {
-        flexGrow: 1,
+        // flexGrow: 1,
     },
     userProfile: {
         justifyContent: 'flex-end',
@@ -83,7 +40,6 @@ const styles = (theme) => ({
     },
 });
 
-
 class AppTopMenuBar extends Component {
 
     state = {
@@ -92,34 +48,16 @@ class AppTopMenuBar extends Component {
 
     render() {
         const {classes, theme, history} = this.props;
-        const open = this.state.isOpenLeftMenu;
-        // console.log("history", this.props);
+        const {pathname} = history.location;
+        console.log("AppTopMenuBar props", this.props);
 
         const toggleDrawer = (open) => (event) => {
-            if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-                return;
-            }
-
+            if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return;
             this.setState({
                 ...this.state,
                 isOpenLeftMenu: open
             });
         };
-
-        const handleLeftMenuOpen = () => {
-            this.setState({
-                ...this.state,
-                isOpenLeftMenu: true
-            });
-        };
-
-        const handleLeftMenuClose = () => {
-            this.setState({
-                ...this.state,
-                isOpenLeftMenu: false
-            });
-        };
-        // TODO: смотри ниже
 
         return (
           <div className={classes.root}>
@@ -129,40 +67,38 @@ class AppTopMenuBar extends Component {
                       <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleLeftMenuOpen}
+                        onClick={toggleDrawer(true)}
                         edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
+                        className={clsx(classes.menuButton)}
                       >
                           <MenuIcon/>
                       </IconButton>
-                      {/*//TODO: сделать показ актуальной страницы вместо текста "Photos" . Убрать класс "myToolbar", после настройки*/}
-                      {/* <Typography variant="h6" className={classes.title}>
-                          Photos
-                      </Typography>*/}
+                       <Typography variant="h6" className={classes.title}>
+                          {
+                              pathname.substr(1,1).toUpperCase() + pathname.slice(2)
+                          }
+                      </Typography>
 
                       <MenuUserProfile history={history} classname={classes.userProfile}/>
 
                   </Toolbar>
               </AppBar>
               <Drawer
-                className={classes.drawer}
-                variant="persistent"
+                variant="temporary"
                 anchor="left"
-                open={open}
-                onClose={toggleDrawer( false)}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
+                open={this.state['isOpenLeftMenu']}
+                onClose={toggleDrawer(false)}
               >
                   <div className={classes.drawerHeader}>
-                      <IconButton onClick={handleLeftMenuClose}>
+                      <Typography>Menu</Typography>
+                      <IconButton onClick={toggleDrawer(false)}>
                           {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                       </IconButton>
                   </div>
 
                   <MenuLinks
                     history={history}
-                    toggleDrawer = {toggleDrawer}
+                    toggleDrawer={toggleDrawer}
                   />
 
               </Drawer>

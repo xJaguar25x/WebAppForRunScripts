@@ -1,7 +1,6 @@
 export { default as App } from "./App/App";
 export { default as Main } from "./Main/Main";
 export { default as AppTopMenuBar } from "./AppTopMenuBar/AppTopMenuBar";
-export { default as TestTopBar } from "./AppTopMenuBar/TestTopBar";
 export { default as MenuLinks } from "./MenuLinks/MenuLinks";
 export { default as MenuUserProfile } from "./MenuUserProfile/MenuUserProfile";
 
