@@ -15,10 +15,10 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/register', (req, res) => {
-    const {name, email, password} = req.body;
+    const {user_name, login, email, password} = req.body;
 
     // Simple validation
-    if (!name || !email || !password) {
+    if (!user_name || !email || !password || !login) {
         return res.status(400).json('Please enter all fields');
     }
 
@@ -30,8 +30,9 @@ router.post('/register', (req, res) => {
 
           // иначе, создаем нового User
           const newUser = new User({
-              name,
+              user_name,
               email,
+              login,
               password
           });
 
@@ -52,7 +53,7 @@ router.post('/register', (req, res) => {
                                   access_token: token,
                                   user: {
                                       id: user.id,
-                                      name: user.name,
+                                      user_name: user.user_name,
                                       email: user.email
                                   }
                               });
@@ -75,7 +76,7 @@ router.post('/login', (req, res) => {
     }
 
     // Check for existing user
-    User.findOne({email: login})
+    User.findOne({login: login})
       .then(user => {
           if (!user) return res.status(404).json('User Does not exist');
 
@@ -94,7 +95,7 @@ router.post('/login', (req, res) => {
                           access_token: token,
                           user: {
                               id: user.id,
-                              name: user.name,
+                              user_name: user.user_name,
                               email: user.email
                           }
                       });
@@ -111,7 +112,13 @@ router.get('/:id', auth, (req, res) => {
       .select('-password')
       .then(user => {
           if (!user) return res.status(404).json('User Does not exist');
-          res.json(user)
+          res.json({
+              user: {
+                  id: user.id,
+                  user_name: user.user_name,
+                  email: user.email
+              }
+          });
       });
 });
 

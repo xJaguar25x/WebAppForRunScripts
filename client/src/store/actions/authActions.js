@@ -63,7 +63,7 @@ export const registerUSER = (data) => dispatch => {
 
     axios
     // .post('/api/users', body, config)
-      .post('/api/users', data, config)
+      .post('/api/users/register', data, config)
       .then(res => {
             localStorage.setItem('access_token', res.data.access_token);
             // localStorage.setItem('refresh_token', res.data.refresh_token);
@@ -140,9 +140,9 @@ export const logoutUSER = () => (dispatch, getState) => {
       });*/
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
-    return {
+    dispatch({
         type: LOGOUT_SUCCESS
-    };
+    })
 };
 
 // Setup config/headers and token

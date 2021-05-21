@@ -12,7 +12,7 @@ export { default as Compilers} from "./Compilers/Compilers";
 export { default as Tasks} from "./Tasks/Tasks";
 export { default as Results} from "./Results/Results";
 
-export { default as LoginForm} from "./LoginForm/LoginForm";
+export { default as AuthForm} from "./AuthForm/AuthForm";
 
 export { default as TerminalContainer } from "./TerminalContainer/TerminalContainer";
 export { default as FormProgs } from "./FormProgs/FormProgs";

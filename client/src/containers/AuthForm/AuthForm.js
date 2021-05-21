@@ -1,17 +1,17 @@
 import React, {Component} from "react";
-import classes from "./LoginFrom.module.scss";
+import classes from "./AuthForm.module.scss";
 import {Button, LabeledInput} from "../../components/index";
 import FormTypeTitle from "../../components/FormTypeTitle/FormTypeTitle";
 import {connect} from "react-redux";
 import {loadUSER, loginUSER, logoutUSER, registerUSER} from "../../store/actions/authActions";
 import {useHistory, useLocation} from "react-router-dom";
 
-class LoginForm extends Component {
+class AuthForm extends Component {
     state = {
         login: '',
         password: '',
-        fullName: '',
-        username: '',
+        nick_name: '',
+        user_name: '',
         email: '',
         formType: 'Login'
     };
@@ -33,11 +33,11 @@ class LoginForm extends Component {
     };
 
     registerUser = () => {
-        const {email, fullName, password, username} = this.state;
-        if (email === "" || password === "" || username === "") return;
+        const {email, nick_name, password, user_name} = this.state;
+        if (email === "" || password === "" || user_name === "") return;
         const register_data = {
-            username: username,
-            full_name: fullName,
+            user_name: user_name,
+            login: nick_name,
             email: email,
             password: password
         };
@@ -104,8 +104,8 @@ class LoginForm extends Component {
     render() {
         const {
             email,
-            username,
-            fullName,
+            user_name,
+            nick_name,
             login,
             password,
             formType,
@@ -139,7 +139,7 @@ class LoginForm extends Component {
                               onKeyDown={this.handleKeyDown}
                               name={'login'}
                               value={login}
-                              title={'E-mail'}
+                              title={'Login'}
                             />
                             <LabeledInput
                               autoFocus
@@ -183,17 +183,17 @@ class LoginForm extends Component {
                               autoFocus
                               onChange={this.handleChange}
                               onKeyDown={this.handleKeyDown}
-                              name={'username'}
-                              value={username}
-                              title={'Username'}
+                              name={'user_name'}
+                              value={user_name}
+                              title={'User name'}
                             />
                             <LabeledInput
                               autoFocus
                               onChange={this.handleChange}
                               onKeyDown={this.handleKeyDown}
-                              name={'fullName'}
-                              value={fullName}
-                              title={'Your full name'}
+                              name={'nick_name'}
+                              value={nick_name}
+                              title={'Login'}
                             />
                             <LabeledInput
                               autoFocus
@@ -206,7 +206,7 @@ class LoginForm extends Component {
                             <Button
                               className={"LoginFormButton"}
                               type="submit"
-                              disabled={password === "" || email === "" || username === ""}
+                              disabled={password === "" || email === "" || user_name === ""}
                               onClick={this.handleLoginSubmit}
                             >
                                 {"Sign Up"}
@@ -232,4 +232,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {loadUSER, loginUSER, logoutUSER, registerUSER}
-)(LoginForm);
+)(AuthForm);

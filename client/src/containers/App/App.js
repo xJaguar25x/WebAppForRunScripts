@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {PrivateRoute, PublicRoute, Main, LoginForm, Programs, Compilers, Tasks, Results} from "../index";
+import {PrivateRoute, PublicRoute, Main, AuthForm, Programs, Compilers, Tasks, Results} from "../index";
 import store from "../../store/store";
 import {loadUSER} from "../../store/actions/authActions";
 import {withRouter, Switch} from "react-router-dom";
@@ -20,7 +20,7 @@ class App extends Component {
         return (
           <Switch>
 
-              <PublicRoute exact path="/login" restricted={true} component={LoginForm}/>
+              <PublicRoute exact path="/login" restricted={true} component={AuthForm}/>
               <PrivateRoute exact path="/" component={Main}/>{/*// можно использовать, если нужна главная страница */}
 
               <LayoutWithMenu history={history}>
