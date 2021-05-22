@@ -40,6 +40,7 @@ class MenuUserProfile extends Component {
         const {classes} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(this.state.anchorEl);
+        const {user} = this.props.Auth.user;
         // console.log("props MenuUserProfile =", this.props);
 
         const handleOpenMenu = (event) => {
@@ -78,14 +79,14 @@ class MenuUserProfile extends Component {
                 variant="text"
                 color="inherit"
                 className={classes.button}
-                startIcon={<AccountCircle />}
+                startIcon={<AccountCircle/>}
                 onClick={handleOpenMenu}
                 size='large'
               >
-                  test
+                  {user.user_name}
               </Button>
               {/*кнопка с иконкой*/}
-            {/*  <IconButton
+              {/*  <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
