@@ -36,10 +36,11 @@ const PrivateRoute = ({component: Component, auth: auth, ...rest}) => {
       <Route
         {...rest}
         render={
-            props => (
+            (props) => (
               // auth.isAuthenticated === true
                 localStorage.getItem('access_token')
-                ? (<Component {...props} />)
+                  // ? (<Component {...props} /> ||)
+                ? ( <Component {...props} /> || props.children) //позволяет передавать компонент через пропсы или между тегами <></>
                 : (<Redirect to={{
                       pathname: "/login",
                       state: {from: props.location}

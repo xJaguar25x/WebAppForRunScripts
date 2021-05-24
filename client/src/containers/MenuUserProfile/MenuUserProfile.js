@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import store from "../../store/store";
 import {loadUSER, logoutUSER} from "../../store/actions/authActions";
 import {compose} from "redux";
@@ -11,6 +11,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Button from "@material-ui/core/Button";
+import {PreloaderWrapper} from "../../hoc/index";
 
 const styles = (theme) => ({
     root: {
@@ -35,12 +36,12 @@ class MenuUserProfile extends Component {
         anchorEl: null,
     };
 
-
-    render() {
+    data(){
+        const {user} = this.props.Auth.user;
         const {classes} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(this.state.anchorEl);
-        const {user} = this.props.Auth.user;
+
         // console.log("props MenuUserProfile =", this.props);
 
         const handleOpenMenu = (event) => {
@@ -120,6 +121,24 @@ class MenuUserProfile extends Component {
                   </MenuItem>
               </Menu>
           </div>
+        )
+    }
+
+    render() {
+        const {Auth} = this.props;
+        return (
+          <Fragment>
+              {/*{console.log("loading = ", this.props.Auth, this.props.Auth.user)}*/}
+              {(
+                Auth.isAuthenticated !== null &&
+                Auth.isLoading !== true &&
+                Auth.user !== null
+              )
+                ? this.data()
+                : null
+              }
+          </Fragment>
+
         );
     }
 }
