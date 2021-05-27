@@ -26,16 +26,16 @@ export default class TerminalContainer extends Component {
         client.send(JSON.stringify(this.props.props));
 
         client.onmessage = (message) => {
-            // const dataFromServer = JSON.parse(message.data);
-            const dataFromServer = (message.data);
+            const dataFromServer = JSON.parse(message.data);
+            // const dataFromServer = (message.data);
             // console.log('got reply! ', dataFromServer);
-            console.log(dataFromServer);
+            console.log(JSON.parse(message.data));
             // if (dataFromServer.type === "message") {
                 this.setState((state) =>
                   ({
                       messages: [...state.messages,
                           {
-                              msg: dataFromServer,
+                              msg: dataFromServer.msg,
                               user: dataFromServer.user
                           }]
                   })
