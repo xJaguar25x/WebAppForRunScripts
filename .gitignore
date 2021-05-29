@@ -28,6 +28,8 @@ yarn-error.log*
 .vs
 /TestScriptForWepApp/TestScriptForWepApp/x64/Debug
 /TestScriptForWepApp/x64/Debug
+/TestScriptForWepApp/TestApp
+/TestScriptForWepApp/TestApp2
 
 #other
 /client/public/uploads
