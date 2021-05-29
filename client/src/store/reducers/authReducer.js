@@ -33,6 +33,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 isLoading: false,
                 user: {
+                    ...state.user,
                     ...action.payload.user,
                     avatar: action.payload.avatar
                 }
@@ -60,7 +61,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 // token: null,
-                user: {},
+                user: null,
                 isAuthenticated: false,
                 isLoading: false
             };

@@ -15,7 +15,7 @@ import {
     FormTests,
     AppTopMenuBar,
     PublicRoute,
-    LoginForm,
+    AuthForm,
     Programs,
     Compilers,
     Tasks,

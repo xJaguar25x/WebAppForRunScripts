@@ -49,7 +49,7 @@ class AppTopMenuBar extends Component {
     render() {
         const {classes, theme, history} = this.props;
         const {pathname} = history.location;
-        console.log("AppTopMenuBar props", this.props);
+        // console.log("AppTopMenuBar props", this.props);
 
         const toggleDrawer = (open) => (event) => {
             if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return;

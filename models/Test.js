@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 // Create Schema
 const TestSchema = new Schema({
     test_name: {
-        type: String,
-        required: true
+        type: String
     },
     prog_id: {
         type: String
