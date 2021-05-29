@@ -36,6 +36,8 @@ const menuLinks = [
         url: '/tasks',
         icon: <QueueIcon/>
     },
+];
+const menuLinks2 = [
     {
         name: 'Results',
         url: '/results',
@@ -93,6 +95,12 @@ class MenuLinks extends Component {
               <Divider/>
               <List>
                   {menuLinks.map((item, index) => (
+                    <ListItemLink key={item.name} to={item.url} primary={item.name} icon={item.icon} history={this.history}/>
+                  ))}
+              </List>
+              <Divider/>
+              <List>
+                  {menuLinks2.map((item, index) => (
                     <ListItemLink key={item.name} to={item.url} primary={item.name} icon={item.icon} history={this.history}/>
                   ))}
               </List>

@@ -102,6 +102,7 @@ exports.RunScript = (clients, message) => {
         };
         console.log(tempExit);
         this.sendMsgAllClients(clients, JSON.stringify(tempExit));
+        addResultToDb(clients, listOfCodes); //запись данных по завершению скрипта
     });
 };
 
@@ -145,3 +146,14 @@ findCode = (str, listOfCodes) => {
     return 0; //возврат 0, если не найден подходящий код
 };
 
+addResultToDb = (clients, obj) => {
+    const Result = require('../models/Result');
+    const start_time = obj[3].msg.slice(-10) * 1000; // переводим в милисекунды (поддерживаемый формат БД)
+    const newTest = new Result({
+        name: 'obj.test_name',
+        start_time: start_time,
+        elapsed_time: obj[4].msg
+    });
+
+    newTest.save().then(item => this.sendMsgAllClients(clients, JSON.stringify(item)));
+};
