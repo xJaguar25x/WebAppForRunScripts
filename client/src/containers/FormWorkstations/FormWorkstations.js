@@ -28,23 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FormWorkstations() {
+export default function FormWorkstations(props) {
     const classes = useStyles();
-    // react-hooks
-    const [message, setMessage] = useState('');
-    const [workstations, setWorkstations] = useState('');
-
-    //запускается 1 раз при монтировании компонента
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(
-              '/api/workstations',
-            );
-            setWorkstations(result.data);
-            // console.log("workstation: ", result.data);
-        };
-        fetchData();
-    }, []);
 
     const validateName = (value) => {
         let error;
@@ -74,33 +59,19 @@ export default function FormWorkstations() {
         return error;
     };
 
-    const onSubmit = async (values) => {
-        // console.log("submit: ", values);
-        // console.log(values);
-
-        try {
-            const res = await axios.post('api/workstations', values);
-            setMessage({status: 200, msg: 'Save successful'});
-            // console.log("upload data: ", res);
-        } catch (err) {
-            if (err.response.status === 500) {
-                setMessage({status: '500', msg: 'There was a problem with a server'});
-            } else {
-                setMessage({status: err.response.status, msg: err.response.data.msg});
-            }
-        }
-    };
+    const {workstations, message} = props.state;
+    const {handleFormsSubmit} = props;
 
     return (
       <Formik
         initialValues={{name: "", type: "", ip_address: "", location: "", description: ""}}
         onSubmit={values => {
-            onSubmit(values)
+            handleFormsSubmit(values)
         }}
       >
           {({errors, touched, handleChange, values, isValid, isValidating}) => (
             <Form className={classes.root}>
-                {message ? <Message msg={message}/> : null}
+                {message &&  message.messageFor === "FormWorkstations" ? <Message msg={message}/> : null}
                 <FormControl required className={classes.formControl}>
                     <Field name="name"
                            id="form-name"

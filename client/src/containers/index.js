@@ -23,4 +23,6 @@ export { default as TableProgsFromDB } from "./TableProgsFromDB/TableProgsFromDB
 export { default as TableCompilersFromDB } from "./TableCompilersFromDB/TableCompilersFromDB";
 export { default as FormTests } from "./FormTests/FormTests";
 export { default as FormWorkstations } from "./FormWorkstations/FormWorkstations";
+export { default as TableWorkstationsFromDB } from "./TableWorkstationsFromDB/TableWorkstationsFromDB";
+
 
