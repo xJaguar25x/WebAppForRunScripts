@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import withStyles from "@material-ui/core/styles/withStyles";
 import clsx from 'clsx';
 import {makeStyles} from "@material-ui/core/styles";
+import ComputerIcon from '@material-ui/icons/Computer';
 
 
 const menuLinks = [
@@ -30,6 +31,11 @@ const menuLinks = [
         name: 'Compilers',
         url: '/compilers',
         icon: <SettingsApplicationsIcon/>
+    },
+    {
+        name: 'Workstations',
+        url: '/workstations',
+        icon: <ComputerIcon/>
     },
     {
         name: 'Tasks',

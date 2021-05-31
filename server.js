@@ -6,6 +6,7 @@ const progRouter = require('./routes/api/progs');
 const compilerRouter = require('./routes/api/compilers');
 const testRouter = require('./routes/api/tests');
 const userRouter = require('./routes/api/users');
+const workstationRouter = require('./routes/api/workstations');
 
 const fileUpload = require('express-fileupload');
 
@@ -59,6 +60,7 @@ app.use('/api/progs', progRouter);
 app.use('/api/compilers', compilerRouter);
 app.use('/api/tests', testRouter);
 app.use('/api/users', userRouter);
+app.use('/api/workstations', workstationRouter);
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
 const WS = require('./middleware/MainWS.js');

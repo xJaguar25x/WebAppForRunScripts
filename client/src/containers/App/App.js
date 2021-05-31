@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {PrivateRoute, PublicRoute, Main, AuthForm, Programs, Compilers, Tasks, Results} from "../index";
+import {PrivateRoute, PublicRoute, Main, AuthForm, Programs, Compilers, Tasks, Results, Workstations} from "../index";
 import store from "../../store/store";
 import {loadUSER} from "../../store/actions/authActions";
 import {withRouter, Switch} from "react-router-dom";
@@ -27,6 +27,7 @@ class App extends Component {
                   <PrivateRoute exact path="/programs" component={Programs}/>
                   <PrivateRoute exact path="/compilers" component={Compilers}/>
                   <PrivateRoute exact path="/tasks" component={Tasks}/>
+                  <PrivateRoute exact path="/workstations" component={Workstations}/>
                   <PrivateRoute exact path="/results" component={Results}/>
               </LayoutWithMenu>
 
