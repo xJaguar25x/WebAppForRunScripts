@@ -140,6 +140,7 @@ class AuthForm extends Component {
                               name={'login'}
                               value={login}
                               title={'Login'}
+                              required
                             />
                             <LabeledInput
                               autoFocus
@@ -148,6 +149,7 @@ class AuthForm extends Component {
                               name={'password'}
                               value={password}
                               title={'Password'}
+                              required
                             />
                             <Button
                               className="LoginFormTextarea"
@@ -156,13 +158,13 @@ class AuthForm extends Component {
                             >
                                 {"Log in"}
                             </Button>
-                            <Button
+                          {/*  <Button
                               className="LoginFormTextarea"
                               type="submit"
                               onClick={this.handleLogout}
                             >
                                 {"Log out"}
-                            </Button>
+                            </Button>*/}
                         </form>
                     </div>
                   )}
