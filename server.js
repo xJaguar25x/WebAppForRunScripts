@@ -2,12 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 
-const progRouter = require('./routes/api/progs');
-const compilerRouter = require('./routes/api/compilers');
-const testRouter = require('./routes/api/tests');
-const userRouter = require('./routes/api/users');
-const workstationRouter = require('./routes/api/workstations');
-
 const fileUpload = require('express-fileupload');
 
 const app = express();
@@ -55,12 +49,13 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-
-app.use('/api/progs', progRouter);
-app.use('/api/compilers', compilerRouter);
-app.use('/api/tests', testRouter);
-app.use('/api/users', userRouter);
-app.use('/api/workstations', workstationRouter);
+// Routing API
+app.use('/api/progs', require('./routes/api/progs'));
+app.use('/api/compilers', require('./routes/api/compilers'));
+app.use('/api/tests', require('./routes/api/tests'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/workstations', require('./routes/api/workstations'));
+app.use('/api/results', require('./routes/api/results'));
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
 const WS = require('./middleware/MainWS.js');
