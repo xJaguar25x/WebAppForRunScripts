@@ -22,20 +22,20 @@ router.get('/', (req, res) => {
 // @desc    Create An Prog
 // @access  Public
 router.post('/', async (req, res) => {
+    // console.log("req", req);
     console.log(req.files);
     const {files} = req;
     let uploadFiles = {};
     let uploadProg_name = req.body.prog_name;
 
-    if (req.body.prog_name === '' && files === null) {
-        return res.status(400).send({status: 400, msg: 'Prog`s name or upload file is empty'});
-    }
-    if (files !== null) {
+    if (files === null) {
+        return res.status(400).send({status: 400, msg: 'Uploading program`s file is missing'});
+    } else {
         //если имя не передано берем имя из имени файла
-        console.info( files.hasOwnProperty('fileCode'));
-        if (uploadProg_name === '' && files.hasOwnProperty('fileCode') ){
+        console.info(files.hasOwnProperty('fileCode'));
+        if (uploadProg_name === '' && files.hasOwnProperty('fileCode')) {
             uploadProg_name = path.basename(files.fileCode.name, path.extname(files.fileCode.name));
-        } else return res.status(400).send({status: 400, msg: 'Prog`s name or upload file is empty'});
+        }
 
         // создаем объект для БД
         uploadFiles = {
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
 // @access  Public
 router.delete('/:id', (req, res) => {
     Prog.findById(req.params.id)
-      .then(item => item.remove().then(() => res.status(200).json({msg:"delete success"})))
+      .then(item => item.remove().then(() => res.status(200).json({msg: "delete success"})))
       .catch(err => res.status(404).json({success: false}));
 });
 

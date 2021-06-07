@@ -29,11 +29,10 @@ export default function FormProgs() {
         // event.preventDefault();
         console.log("submit: ", values);
         const formData = new FormData();
-        formData.append('prog_name', values.prog_name);
-        formData.append('fileCode', values.code );
-        formData.append('fileMeta', values.meta );
-        console.log(formData);
-        console.log(values.code );
+        formData.set('prog_name', values.prog_name);
+        formData.set('fileCode', values.code );
+        formData.set('fileMeta', values.meta );
+        console.log("values", values );
         // проверить на существование свойства объекта
         console.info( values.code.hasOwnProperty('name'));
 

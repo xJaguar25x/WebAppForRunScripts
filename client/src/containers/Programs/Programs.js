@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import {FormProgs, TableProgsFromDB} from "../index";
 import Box from "@material-ui/core/Box";
 
