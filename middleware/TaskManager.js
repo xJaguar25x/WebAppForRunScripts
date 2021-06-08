@@ -1,3 +1,8 @@
+//типы событий(клиент, агент(сервер))
+const typesDef = {
+    USER_EVENT: "userevent",
+    AGENT_EVENT: "agentevent"
+};
 exports.getUniqueID = () => {
     // This code generates unique userid for everyuser.
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -9,6 +14,29 @@ exports.sendMsgAllClients = (clients, data) => {
         clients[key].send(data);
         // console.log('sent Message to: ', data);
     }
+};
+exports.TaskManager = (clients, message) => {
+    if (message.type === 'utf8') {
+        console.log('Received Message: ', message.utf8Data);
+        const dataFromClient = JSON.parse(message.utf8Data);
+        const json = {type: dataFromClient.type};
+
+        //фильтрация по типу сообщения для клиента или для агента
+        switch (dataFromClient.type) {
+            case typesDef.USER_EVENT:
+                this.RunScript(clients, message);
+                break;
+            case typesDef.AGENT_EVENT:
+                console.log("AGENT_EVENT");
+                //TODO: создать функцию по работе с агентами, учесть пересылку файлов по WebSocket (программы), а также следить за прогрессом выполнения и пересылать по нужному ip, учесть блокировку выполнения при запущенных задачах(подумать над паралеллельным режимом
+                break;
+            default:
+                return 1;
+        }
+    }
+   /* console.log('utf8Data: ' + JSON.parse(message.utf8Data).type + "\n");
+    console.log('type: ' + (message.type) + "\n");
+    for (let key in message) console.log('key: ' + key);*/
 };
 exports.RunScript = (clients, message) => {
     //функция для запуска внешних модулей
@@ -106,6 +134,7 @@ exports.RunScript = (clients, message) => {
     });
 };
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Local functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*//версия с forEach
 findCode = (str, listOfCodes) => {
     let runningCode = null;

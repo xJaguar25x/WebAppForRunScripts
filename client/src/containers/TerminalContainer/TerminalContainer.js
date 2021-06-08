@@ -23,14 +23,23 @@ export default class TerminalContainer extends Component {
         client.onopen = () => {
             console.log('WebSocket Client Connected');
         };
-        client.send(JSON.stringify(this.props.props));
+        client.send(JSON.stringify({
+            data: this.props.props,
+            type: "userevent",
+            user: {
+                name: this.state.userName,
+                //id: this.state //тутнужно передать user_id
+            }
+        }));
 
         client.onmessage = (message) => {
             const dataFromServer = JSON.parse(message.data);
             // const dataFromServer = (message.data);
             // console.log('got reply! ', dataFromServer);
             console.log(JSON.parse(message.data));
-            // if (dataFromServer.type === "message") {
+
+            //фильтрация по типу сообщения для клиента или для агента
+            if (dataFromServer.type === "userevent") {
                 this.setState((state) =>
                   ({
                       messages: [...state.messages,
@@ -40,7 +49,7 @@ export default class TerminalContainer extends Component {
                           }]
                   })
                 );
-            // }
+            }
         };
     }
 
