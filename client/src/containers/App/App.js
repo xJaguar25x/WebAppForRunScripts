@@ -23,16 +23,16 @@ class App extends Component {
               <PublicRoute exact path="/login" restricted={true} component={AuthForm}/>
               <PrivateRoute exact path="/" component={Main}/>{/*// можно использовать, если нужна главная страница */}
 
-              {/*<LayoutWithMenu history={history}>
+              <LayoutWithMenu history={history}>
                   <PrivateRoute exact path="/programs" component={Programs}/>
                   <PrivateRoute exact path="/compilers" component={Compilers}/>
                   <PrivateRoute exact path="/tasks" component={Tasks}/>
                   <PrivateRoute exact path="/workstations" component={Workstations}/>
                   <PrivateRoute exact path="/results" component={Results}/>
-              </LayoutWithMenu>*/}
+              </LayoutWithMenu>
 
             {/*  2-й вариант (идентичны)*/}
-              <PrivateRoute exact path="/programs">
+             {/* <PrivateRoute exact path="/programs">
                   <LayoutWithMenu history={history}><Programs/></LayoutWithMenu>
               </PrivateRoute>
               <PrivateRoute exact path="/compilers">
@@ -46,7 +46,7 @@ class App extends Component {
               </PrivateRoute>
               <PrivateRoute exact path="/results">
                   <LayoutWithMenu history={history}><Results/></LayoutWithMenu>
-              </PrivateRoute>
+              </PrivateRoute>*/}
 
           </Switch>
         )
