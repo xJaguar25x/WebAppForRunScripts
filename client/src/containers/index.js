@@ -17,6 +17,7 @@ export { default as Results} from "./Results/Results";
 export { default as AuthForm} from "./AuthForm/AuthForm";
 
 export { default as TerminalContainer } from "./TerminalContainer/TerminalContainer";
+export { default as TaskMonitor } from "./TaskMonitor/TaskMonitor";
 export { default as FormProgs } from "./FormProgs/FormProgs";
 export { default as FormCompilers } from "./FormCompilers/FormCompilers";
 export { default as TableProgsFromDB } from "./TableProgsFromDB/TableProgsFromDB";
