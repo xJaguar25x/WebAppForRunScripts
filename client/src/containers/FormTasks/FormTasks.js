@@ -8,6 +8,7 @@ import Input from "@material-ui/core/Input/Input";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import Chip from "@material-ui/core/Chip";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -59,7 +60,7 @@ const MenuProps = {
     },
 };
 
-export default function FormTasks() {
+export default function FormTasks(props) {
     const classes = useStyles();
     const theme = useTheme();
     // react-hooks
@@ -111,6 +112,9 @@ export default function FormTasks() {
     };*/
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NEW ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    const {clientWS} = props;
+    console.log("props", props);
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
@@ -130,7 +134,6 @@ export default function FormTasks() {
     }, []);
 
     function handlerRunScript() {
-        setTerminalOpen(!terminal);
         setFormData({
             prog_name: selectedProg.prog_name,
             compiler_name: selectedCompiler.compiler_name,
@@ -141,6 +144,7 @@ export default function FormTasks() {
             //     return selectedProg.prog_name + ' ' + selectedCompiler.compiler_name + ' ' + numbIter;
             // }
         });
+        setTerminalOpen(!terminal);
         console.log(formData);
     };
     return (
@@ -262,8 +266,11 @@ export default function FormTasks() {
               Run test group
           </Button>
 
-          {terminal ? <TerminalContainer props={formData}/> : null}
+          {terminal ? <TerminalContainer formData={formData} clientWS={clientWS}/> : null}
       </div>
 
     );
 }
+FormTasks.propTypes = {
+    clientWS: PropTypes.any.isRequired
+};

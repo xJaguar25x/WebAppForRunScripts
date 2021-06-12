@@ -3,6 +3,10 @@ import {FormTasks, TaskMonitor} from "../index";
 import Box from "@material-ui/core/Box";
 import {Container} from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {w3cwebsocket as W3CWebSocket} from "websocket";
+
+//создание нового соединения WebSocket
+const clientWS = new W3CWebSocket('ws://localhost:5000');
 
 const styles = (theme) => ({
     container: {
@@ -15,13 +19,19 @@ const styles = (theme) => ({
 });
 
 class Tasks extends Component {
+    componentDidMount() {
+        clientWS.onopen = () => {
+            console.log('WebSocket Client Connected');
+        };
+    }
+
     render() {
         const {classes, theme, history} = this.props;
 
         return (
           <Container className={classes.container}>
               <Box p={3}>
-                  <FormTasks/>
+                  <FormTasks clientWS={clientWS}/>
               </Box>
               <Box>
                   <TaskMonitor/>

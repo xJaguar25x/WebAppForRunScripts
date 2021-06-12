@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import {w3cwebsocket as W3CWebSocket} from "websocket";
 import classes from './TerminalContainer.module.scss';
 import PropTypes from "prop-types";
-
-const client = new W3CWebSocket('ws://localhost:5000');
 
 export default class TerminalContainer extends Component {
     state = {
@@ -11,28 +8,24 @@ export default class TerminalContainer extends Component {
         isLoggedIn: false,
         messages: []
     };
-    onButtonClicked = (value) => {
-        client.send(JSON.stringify({
-            type: "message",
-            msg: value,
-            user: this.state.userName
-        }));
+
+    sendTask = (state, props) => {
+        console.log("props terminal", props);
+          props.clientWS.send(JSON.stringify({
+              data: props.formData.props,
+              type: "userevent",
+              user: {
+                  name: state.userName,
+                  //id: this.state //тутнужно передать user_id
+              }
+          }));
     };
 
     componentDidMount() {
-        client.onopen = () => {
-            console.log('WebSocket Client Connected');
-        };
-        client.send(JSON.stringify({
-            data: this.props.props,
-            type: "userevent",
-            user: {
-                name: this.state.userName,
-                //id: this.state //тутнужно передать user_id
-            }
-        }));
 
-        client.onmessage = (message) => {
+        this.sendTask(this.state, this.props);
+
+        this.props.clientWS.onmessage = (message) => {
             const dataFromServer = JSON.parse(message.data);
             // const dataFromServer = (message.data);
             // console.log('got reply! ', dataFromServer);
@@ -70,5 +63,6 @@ export default class TerminalContainer extends Component {
 }
 TerminalContainer.propTypes = {
     children: PropTypes.node,
-    props: PropTypes.any.isRequired
+    clientWS: PropTypes.any.isRequired,
+    formData: PropTypes.any.isRequired
 };

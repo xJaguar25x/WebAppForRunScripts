@@ -126,9 +126,9 @@ class TaskMonitor extends Component {
               <h3>Monitoring Agents</h3>
 
               <div className={classes.accordion}>
-                  {workstations.map(item => (
+                  {workstations.map((item, index) => (
 
-                    <Accordion>
+                    <Accordion key={index}>
                         <AccordionSummary
                           classes={{content: classes.accordionSummaryContent}}
                           // expandIcon={<ExpandMoreIcon/>}
