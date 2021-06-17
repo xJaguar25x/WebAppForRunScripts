@@ -1,5 +1,6 @@
 {
   "mongoURI": "mongodb://localhost:27017/web_tool_run_scripts",
   // mongoURI-standart: "mongodb://user:pass@localhost:port/database",
-  "jwtSecret": "Anything_secret_string"
+  "jwtSecret": "Anything_secret_string",
+  "serverPort": "5000"
 }

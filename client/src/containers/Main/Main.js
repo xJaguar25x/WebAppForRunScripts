@@ -12,7 +12,7 @@ import {
     FormProgs,
     TableProgsFromDB,
     TableCompilersFromDB,
-    FormTests,
+    FormTasks,
     AppTopMenuBar,
     PublicRoute,
     AuthForm,
@@ -111,7 +111,7 @@ function Main(props) {
               <TableCompilersFromDB/>
           </TabPanel>
           <TabPanel value={value} index={2}>
-              <FormTests/>
+              <FormTasks/>
           </TabPanel>
 
       </div>

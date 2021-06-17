@@ -32,17 +32,20 @@ class App extends Component {
               </LayoutWithMenu>
 
             {/*  2-й вариант (идентичны)*/}
-            {/*  <PrivateRoute exact path="/programs">
+             {/* <PrivateRoute exact path="/programs">
                   <LayoutWithMenu history={history}><Programs/></LayoutWithMenu>
               </PrivateRoute>
               <PrivateRoute exact path="/compilers">
-                  <LayoutWithMenu history={history}>Compilers</LayoutWithMenu>
+                  <LayoutWithMenu history={history}><Compilers/></LayoutWithMenu>
               </PrivateRoute>
               <PrivateRoute exact path="/tasks">
-                  <LayoutWithMenu history={history}>Tasks</LayoutWithMenu>
+                  <LayoutWithMenu history={history}><Tasks/></LayoutWithMenu>
+              </PrivateRoute>
+              <PrivateRoute exact path="/workstations">
+                  <LayoutWithMenu history={history}><Workstations/></LayoutWithMenu>
               </PrivateRoute>
               <PrivateRoute exact path="/results">
-                  <LayoutWithMenu history={history}>Results</LayoutWithMenu>
+                  <LayoutWithMenu history={history}><Results/></LayoutWithMenu>
               </PrivateRoute>*/}
 
           </Switch>

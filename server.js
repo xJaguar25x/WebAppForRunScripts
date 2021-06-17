@@ -58,10 +58,10 @@ app.use('/api/workstations', require('./routes/api/workstations'));
 app.use('/api/results', require('./routes/api/results'));
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
-const WS = require('./middleware/MainWS.js');
+const WS = require('./modules/MainWS.js');
 WS.mainWebSocket(server);
 // ~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || config.get('serverPort');
 server.listen(port, () => console.log(`Server started on port ${port}`));

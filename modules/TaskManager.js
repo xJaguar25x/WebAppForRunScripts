@@ -1,3 +1,8 @@
+//типы событий(клиент, агент(сервер))
+const typesDef = {
+    USER_EVENT: "userevent",
+    AGENT_EVENT: "agentevent"
+};
 exports.getUniqueID = () => {
     // This code generates unique userid for everyuser.
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -10,7 +15,73 @@ exports.sendMsgAllClients = (clients, data) => {
         // console.log('sent Message to: ', data);
     }
 };
-exports.RunScript = (clients, message) => {
+exports.TaskManager = (clients, message) => {
+    //Главная функция, точка входа после получения любого сообщения через WebSocket. Вызывается из MainWS.js
+    if (message.type === 'utf8') {
+        console.log('Received Message: ', message.utf8Data);
+        const dataFromClient = JSON.parse(message.utf8Data);
+        const sender = {type: dataFromClient.type};
+
+        //фильтрация по типу сообщения для клиента или для агента
+        switch (dataFromClient.type) {
+            case typesDef.USER_EVENT:
+                DistributionByAgent(clients, message);
+                break;
+            case typesDef.AGENT_EVENT:
+                console.log("AGENT_EVENT");
+                //Прием сообщений от агентов
+
+                //TODO: создать функцию по работе с агентами, учесть пересылку файлов по WebSocket (программы), а также следить за прогрессом выполнения и пересылать по нужному ip, учесть блокировку выполнения при запущенных задачах(подумать над паралеллельным режимом
+                break;
+            default:
+                return 1;
+        }
+    }
+    /* console.log('utf8Data: ' + JSON.parse(message.utf8Data).type + "\n");
+     console.log('type: ' + (message.type) + "\n");
+     for (let key in message) console.log('key: ' + key);*/
+};
+
+DistributionByAgent = (clients, message) => {
+    //функция распределения задач по агентам
+
+    //пример присылаемых данных
+    /*Received Message:  {"data":{"prog_name":"TestApp1","compiler_name":"MSVC","ip_address":["192.168.2.104","192.168.2.103"]},"type":"userevent","user":{"name":"state.userName"}}*/
+    // const afterConvertToObj = {
+    //     data: {
+    //         prog_name: 'TestApp1',
+    //         compiler_name: 'MSVC',
+    //         ip_address: ['192.168.2.104', '192.168.2.103']
+    //     },
+    //     type: 'userevent',
+    //     user: {name: 'state.userName'}
+    // };
+    const parsedMsg = JSON.parse(message.utf8Data);
+    const ipList = parsedMsg.data.ip_address;
+    const afterConvertToObj = JSON.parse(message.utf8Data);
+    console.log("afterConvertToObj", afterConvertToObj);
+    console.log("ipList", ipList);
+
+    ipList.forEach((item) => {
+        if (item === "127.0.0.1") {
+            //запуск на локальном сервере
+            RunScript(clients, message);
+        } else {
+            //запуск на удаленных агентах
+            //TODO: отфильтровать ip, отправить только нужный
+            SendTaskToAgent(clients, message, item);
+        }
+    })
+};
+
+SendTaskToAgent = (clients, message) => {
+    //функция для передачи задачи удаленным агентам
+    console.log("выполняется ф-ия SendTaskToAgent()");
+    console.log("clients", clients);
+
+};
+
+RunScript = (clients, message) => {
     //функция для запуска внешних модулей
     const formData = JSON.parse(message.utf8Data);
     console.log(formData);
@@ -106,6 +177,7 @@ exports.RunScript = (clients, message) => {
     });
 };
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Local functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*//версия с forEach
 findCode = (str, listOfCodes) => {
     let runningCode = null;

@@ -1,4 +1,4 @@
-const mySqripts = require('./RunScript');
+const mySqripts = require('./TaskManager');
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~ WebSoket ~~~~~~~~~~~~~~~~~~~~~~
@@ -47,7 +47,8 @@ exports.mainWebSocket = function (server) {
 //initialize a simple http server
 // const server = require('http').createServer(app); // подключен выше
 //initialize the WebSocket server instance
-    const wsServer = new webSocketServer({ httpServer: server });
+    const wsServer = new webSocketServer({httpServer: server});
+    // I'm maintaining all active connections in this object
     const clients = {};
 
     wsServer.on('request', function (request) {
@@ -59,21 +60,17 @@ exports.mainWebSocket = function (server) {
         clients[userID] = connection;
         console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(clients));
 
+        //событие при получении сообщения
         connection.on('message', function (message) {
-            // if (message.type === 'utf8') {
-            //     console.log('Received Message: ', message.utf8Data);
-            //
-            //     // broadcasting message to all connected clients
-            //     for (let key in clients) {
-            //         clients[key].sendUTF(message.utf8Data);
-            //         console.log('sent Message to: ', key);
-            //     }
-            // }
-            mySqripts.RunScript(clients, message);
-
+            //вызов TaskManager
+            mySqripts.TaskManager(clients, message);
         });
+
+        // событие при закрытие соединения
         connection.on('close', function (reasonCode, description) {
+            delete clients[userID];
             console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+            console.log('\n reasonCode ' + reasonCode + ' description.' + description + " ws" + JSON.stringify(connection));
         });
     });
 };

@@ -48,14 +48,14 @@ export default function FormCompilers() {
           {(formProps) => (
             <Form className={classes.root}>
                 {message ? <Message msg={message}/> : null}
-                <Field name="compiler_name" id="standard-basic" label="compiler_name"
+                <Field name="compiler_name" id="standard-basic" label="Compiler`s name"
                        value={formProps.values.compiler_name}
                        as={TextField}/>
-                <Field name="command_to_compile" id="standard-basic" label="command_to_compile"
+                <Field name="command_to_compile" id="standard-basic" label="Command to compile"
                        value={formProps.values.command_to_compile}
                        multiline
                        as={TextField}/>
-                <Field name="command_to_run" id="standard-basic" label="command_to_run"
+                <Field name="command_to_run" id="standard-basic" label="Command to run"
                        value={formProps.values.command_to_run}
                        multiline
                        as={TextField}/>
