@@ -20,6 +20,9 @@ const styles = (theme) => ({
 
 class Tasks extends Component {
     componentDidMount() {
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Http ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~ WebSocket ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         clientWS.onopen = () => {
             console.log('WebSocket Client Connected');
         };
@@ -34,7 +37,7 @@ class Tasks extends Component {
                   <FormTasks clientWS={clientWS}/>
               </Box>
               <Box>
-                  <TaskMonitor/>
+                  <TaskMonitor clientWS={clientWS}/>
               </Box>
           </Container>
 

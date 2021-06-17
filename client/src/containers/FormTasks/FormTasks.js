@@ -85,14 +85,14 @@ export default function FormTasks(props) {
         '12.18.2.11',
         '123.142.185.33',
     ];*/
-   /* function getStyles(name, personName, theme) {
-        return {
-            fontWeight:
-              personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-        };
-    }*/
+    /* function getStyles(name, personName, theme) {
+         return {
+             fontWeight:
+               personName.indexOf(name) === -1
+                 ? theme.typography.fontWeightRegular
+                 : theme.typography.fontWeightMedium,
+         };
+     }*/
     const [selectedIpAdress, setSelectedIpAdress] = React.useState([]);
 
     const handleChange = (event) => {
@@ -113,9 +113,10 @@ export default function FormTasks(props) {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NEW ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     const {clientWS} = props;
-    console.log("props", props);
+    // console.log("props", props);
 
     useEffect(() => {
+        // получение всех сущностей из базы данных
         const fetchData = async () => {
             const result = await axios(
               '/api/progs/',
@@ -133,20 +134,41 @@ export default function FormTasks(props) {
         fetchData();
     }, []);
 
-    function handlerRunScript() {
+    useEffect(() => {
+        // автоматическое обновление FormData при изменении selectedIpAdress, selectedProg, selectedCompiler. Решает проблему, когда функция sendTask() выполняется быстрее, чем обновление state setFormData() в функции handlerRunScript()
         setFormData({
             prog_name: selectedProg.prog_name,
             compiler_name: selectedCompiler.compiler_name,
             ip_address: selectedIpAdress
-            // numbIter: numbIter,
-            //не работает
-            // toString: function () {
-            //     return selectedProg.prog_name + ' ' + selectedCompiler.compiler_name + ' ' + numbIter;
-            // }
+        });
+        // console.log("автоматическое обновление FormData при изменении selectedIpAdress");
+    }, [selectedIpAdress, selectedProg, selectedCompiler]);
+
+    const sendTask = () => {
+        console.log("props terminal", props);
+        clientWS.send(JSON.stringify({
+            data: formData,
+            type: "userevent",
+            user: {
+                name: "state.userName",
+                //id: this.state //тутнужно передать user_id
+            }
+        }));
+    };
+
+    const handlerRunScript = () => {
+        setFormData({
+            prog_name: selectedProg.prog_name,
+            compiler_name: selectedCompiler.compiler_name,
+            ip_address: selectedIpAdress
         });
         setTerminalOpen(!terminal);
+
+        sendTask();
+
         console.log(formData);
     };
+
     return (
       <div className={classes.root}>
           <h3>Configure task</h3>
@@ -196,7 +218,7 @@ export default function FormTasks(props) {
                   </Select>
               </FormControl>
 
-             {/* <TextField
+              {/* <TextField
                 name="numbIter"
                 id="standard-basic"
                 label="Numbers of iterations"
@@ -213,19 +235,19 @@ export default function FormTasks(props) {
                     multiple
                     value={selectedIpAdress}
                     onChange={handleChange}
-                    input={<Input />}
+                    input={<Input/>}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}
                   >
                       {ipAdress.map((item) => (
                         <MenuItem key={item._id} value={item.ip_address}>
-                            <Checkbox checked={selectedIpAdress.indexOf(item.ip_address) > -1} />
-                            <ListItemText primary={item.ip_address} />
+                            <Checkbox checked={selectedIpAdress.indexOf(item.ip_address) > -1}/>
+                            <ListItemText primary={item.ip_address}/>
                         </MenuItem>
                       ))}
                   </Select>
               </FormControl>
-             {/* <FormControl className={classes.formControl}>
+              {/* <FormControl className={classes.formControl}>
                   <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
                   <Select
                     labelId="demo-mutiple-chip-label"
@@ -263,7 +285,7 @@ export default function FormTasks(props) {
             type="submit"
             onClick={() => handlerRunScript()}
           >
-              Run test group
+              Add Task
           </Button>
 
           {terminal ? <TerminalContainer formData={formData} clientWS={clientWS}/> : null}

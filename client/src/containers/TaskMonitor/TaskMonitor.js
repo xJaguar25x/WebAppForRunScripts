@@ -14,6 +14,7 @@ import Chip from '@material-ui/core/Chip';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {green, orange} from '@material-ui/core/colors';
 import withStyles from "@material-ui/core/styles/withStyles";
+import PropTypes from "prop-types";
 
 const statusTheme = createMuiTheme({
     palette: {
@@ -113,8 +114,31 @@ class TaskMonitor extends Component {
         ]
     };
 
-    setStatusColor = () => {
+    componentDidMount() {
 
+        this.props.clientWS.onmessage = (message) => {
+            const dataFromServer = JSON.parse(message.data);
+            // const dataFromServer = (message.data);
+            // console.log('got reply! ', dataFromServer);
+            console.log(JSON.parse(message.data));
+
+            //фильтрация по типу сообщения для клиента или для агента
+            if (dataFromServer.type === "userevent") {
+                this.setState((state) =>
+                  ({
+                      messages: [...state.messages,
+                          {
+                              msg: dataFromServer.msg,
+                              user: dataFromServer.user
+                          }]
+                  })
+                );
+            }
+        };
+    }
+
+    setStatusColor = () => {
+    //TODO: дописать функцию
     };
 
     render() {
@@ -191,5 +215,7 @@ class TaskMonitor extends Component {
         );
     }
 }
-
+TaskMonitor.propTypes = {
+    clientWS: PropTypes.any.isRequired
+};
 export default withStyles(styles, {withTheme: true})(TaskMonitor);

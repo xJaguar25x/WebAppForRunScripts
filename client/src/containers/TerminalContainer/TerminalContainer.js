@@ -23,9 +23,9 @@ export default class TerminalContainer extends Component {
 
     componentDidMount() {
 
-        this.sendTask(this.state, this.props);
+        // this.sendTask(this.state, this.props);
 
-        this.props.clientWS.onmessage = (message) => {
+      /*  this.props.clientWS.onmessage = (message) => {
             const dataFromServer = JSON.parse(message.data);
             // const dataFromServer = (message.data);
             // console.log('got reply! ', dataFromServer);
@@ -43,7 +43,7 @@ export default class TerminalContainer extends Component {
                   })
                 );
             }
-        };
+        };*/
     }
 
     render() {
