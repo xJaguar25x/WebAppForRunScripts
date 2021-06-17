@@ -70,7 +70,7 @@ exports.mainWebSocket = function (server) {
         connection.on('close', function (reasonCode, description) {
             delete clients[userID];
             console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
-            // console.log('\n reasonCode ' + reasonCode + ' description.' + description + " ws" + JSON.stringify(connection));
+            console.log('\n reasonCode ' + reasonCode + ' description.' + description + " ws" + JSON.stringify(connection));
         });
     });
 };

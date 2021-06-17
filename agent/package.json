@@ -1,0 +1,24 @@
+{
+  "name": "webtoolrunscripts-agent",
+  "version": "1.0.0",
+  "description": "WebApp for running cmd/bat scripts. MERN stack.",
+  "private": true,
+  "author": "Galyuk Viktor",
+  "lincese": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^3.3.2",
+    "express": "~4.16.1",
+    "express-fileupload": "^1.2.0",
+    "websocket": "^1.0.32"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
